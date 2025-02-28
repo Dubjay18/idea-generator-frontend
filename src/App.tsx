@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -21,7 +21,6 @@ import {
   SelectValue,
 } from "./components/ui/select";
 import { Checkbox } from "./components/ui/checkbox";
-import { Label } from "./components/ui/label";
 import {
   Card,
   CardContent,
@@ -55,7 +54,7 @@ function App() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [body, setBody] = useState<any>(null);
-  const [showIframe, setShowIframe] = useState(false);
+  const [showIframe] = useState(false);
 
   // React Hook Form setup
   const form = useForm<z.infer<typeof formSchema>>({
@@ -96,6 +95,7 @@ function App() {
           `${import.meta.env.VITE_API_URL}/api/idea_generator`
         );
         setBody(response.data);
+        console.log(body);
       } catch (error: any) {
         console.error("Error fetching body:", error);
         setError(error.message || "Failed to fetch body.");
